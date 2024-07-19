@@ -63,7 +63,7 @@ function Car() {
                         <div className="flex mt-6 items-center pb-5 border-b-2 border-gray-800 mb-5">
                         </div>
                         <div className="flex flex-wrap gap-4 items-center justify-between">
-                            <span className="title-font font-medium text-2xl text-white">{car?.price} / 2 days</span>
+                            <span className="title-font font-medium text-2xl text-white">{car?.price} / day</span>
                             {car?.booked ? <Link to='/' className='text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded'>Back</Link> : <Link to={`/book/${car?._id}`} className="text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded ">Book Now</Link>}
 
                         </div>
