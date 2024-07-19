@@ -98,6 +98,8 @@ const BookingForm = () => {
                         onChange={handleChange}
                         className="w-full px-3 py-2 border rounded-lg"
                         required
+                        min={10}
+                        max={10}
                     />
                 </div>
                 <div className="mb-4">
