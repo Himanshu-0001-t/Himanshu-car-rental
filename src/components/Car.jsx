@@ -28,7 +28,7 @@ function Car() {
 
     return (
         <section className="text-gray-400 bg-gray-900 body-font overflow-hidden min-h-screen">
-            <div className="container px-5 py-24 mx-auto">
+            <div className="container px-5 md:py-24 py-8 mx-auto">
                 <div className="lg:w-4/5 mx-auto flex flex-wrap">
                     <img alt="ecommerce" className="lg:w-1/2 w-full lg:h-auto h-64 object-contain object-center rounded" src={`${car?.carImage}`} />
                     <div className="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
@@ -56,8 +56,7 @@ function Car() {
                                 </a>
                             </span>
                         </div>
-                        <p className="leading-relaxed">Welcome to our premier car rental website, where quality meets reliability. We pride ourselves on offering an extensive fleet of top-notch vehicles that cater to every need and preference. Whether you're planning a scenic road trip, a business excursion, or simply need a stylish ride for a special occasion, we've got you covered. Our cars are meticulously maintained to ensure peak performance and safety, providing you with the confidence to explore and enjoy your journey to the fullest. From sleek sedans to spacious SUVs and eco-friendly hybrids, each vehicle in our collection is chosen with your comfort and satisfaction in mind. Experience the difference with our exceptional cars and seamless rental service today.
-
+                        <p className="leading-relaxed max-h-64 overflow-auto">Discover our compact car rental, perfect for city driving and short trips. This car offers excellent fuel efficiency, easy maneuverability, and comfortable seating for up to four passengers. Equipped with modern amenities, it's an ideal choice for both solo travelers and small families. Book now to enjoy a smooth and economical ride!
 
                         </p>
                         <div className="flex mt-6 items-center pb-5 border-b-2 border-gray-800 mb-5">
