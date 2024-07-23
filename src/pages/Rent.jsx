@@ -3,6 +3,7 @@ import axios from 'axios';
 import { toast } from "react-hot-toast"
 import CarFilter from '../components/Filter';
 import { Link } from 'react-router-dom';
+import ProductSkeleton from '../components/Skeleton';
 function Rent() {
 
     const makes = ['Toyota', 'Honda', 'Renault', 'Ford', 'Mahindra', 'Maruti Suzuki', 'TATA'];
@@ -12,10 +13,12 @@ function Rent() {
     const prices = [1000, 1500, 2000, 2500, 3000];
     const [isHide, setIsHide] = useState(false)
     const [cars, setCars] = useState([])
+    const [isLoding, setIsLoding] = useState(false)
 
     const feachCar = async (query) => {
 
         try {
+            setIsLoding(true)
             let response = await axios.get(`https://car-rental-backend-g8cq.onrender.com/api/car${query ? `${query}` : ""}`)
 
             if (response.data.success) {
@@ -28,6 +31,8 @@ function Rent() {
 
         } catch (error) {
             console.log(error.message)
+        } finally {
+            setIsLoding(false)
         }
     }
 
@@ -101,30 +106,36 @@ function Rent() {
 
     return (
         <section className="text-gray-600 body-font bg-gray-900 min-h-screen flex">
+            {isLoding ?
+                <>
+                    <div className="w-full py-24 px-5 mx-auto pb-10">
+                        <div className="flex flex-wrap">
+                            <ProductSkeleton />
+                        </div>
+                    </div>
+                </>
 
-            <div className="px-5 py-24 w-full">
+                : <div className="px-5 py-24 w-full">
+                    <div className="grid xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1">
+                        {cars.map((car) => {
+                            return (
+                                <Link to={`/${car._id}`} key={car._id} className="p-4 w-full">
+                                    <div className="block relative h-48 rounded overflow-hidden">
+                                        <img alt="car" className="object-cover object-center w-full h-full block" src={car.carImage} />
+                                    </div>
+                                    <div className="mt-4">
+                                        <h3 className="text-gray-300 tracking-widest title-font mb-1">{car.brand} {car.carName}</h3>
+                                        <h3 className="text-gray-300 tracking-widest title-font mb-1">{car.fuel}</h3>
+                                        <h3 className="text-gray-300 tracking-widest title-font mb-1">{car.transmission}</h3>
+                                        <h2 className="text-gray-300 title-font text-lg font-medium">{car.price} Rs/day</h2>
 
-                <div className="grid xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1">
-                    {cars.map((car) => {
-                        return (
-                            <Link to={`/${car._id}`} key={car._id} className="p-4 w-full">
-                                <div className="block relative h-48 rounded overflow-hidden">
-                                    <img alt="car" className="object-cover object-center w-full h-full block" src={car.carImage} />
-                                </div>
-                                <div className="mt-4">
-                                    <h3 className="text-gray-300 tracking-widest title-font mb-1">{car.brand} {car.carName}</h3>
-                                    <h3 className="text-gray-300 tracking-widest title-font mb-1">{car.fuel}</h3>
-                                    <h3 className="text-gray-300 tracking-widest title-font mb-1">{car.transmission}</h3>
-                                    <h2 className="text-gray-300 title-font text-lg font-medium">{car.price} Rs/day</h2>
+                                    </div>
+                                </Link>
+                            )
+                        })}
+                    </div>
 
-                                </div>
-                            </Link>
-
-                        )
-                    })}
-                </div>
-
-            </div>
+                </div>}
 
             <div className="absolute right-0 w-72 p-4">
                 <h1 className="text-2xl font-bold mb-4 text-white cursor-pointer text-center bg-indigo-700 py-1 rounded-md" onClick={toggleFilter}>Filter's</h1>
