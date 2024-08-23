@@ -119,18 +119,22 @@ function Rent() {
                     <div className="grid xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1">
                         {cars.map((car) => {
                             return (
-                                <Link to={`/${car._id}`} key={car._id} className="p-4 w-full">
-                                    <div className="block relative h-48 rounded overflow-hidden">
-                                        <img alt="car" className="object-cover object-center w-full h-full block" src={car.carImage} />
+                                <Link to={`/car/${car._id}`} key={car._id} className="p-4 w-full transform hover:scale-105 transition-transform duration-300">
+                                    <div className="block relative h-48 rounded-lg overflow-hidden shadow-lg">
+                                        <img
+                                            alt="car"
+                                            className="object-cover object-center w-full h-full block transition-opacity duration-300 hover:opacity-80"
+                                            src={car.carImage}
+                                        />
                                     </div>
-                                    <div className="mt-4">
-                                        <h3 className="text-gray-300 tracking-widest title-font mb-1">{car.brand} {car.carName}</h3>
-                                        <h3 className="text-gray-300 tracking-widest title-font mb-1">{car.fuel}</h3>
-                                        <h3 className="text-gray-300 tracking-widest title-font mb-1">{car.transmission}</h3>
-                                        <h2 className="text-gray-300 title-font text-lg font-medium">{car.price} Rs/day</h2>
-
+                                    <div className="mt-4 text-center">
+                                        <h3 className="text-gray-700 dark:text-gray-300 uppercase text-sm tracking-widest title-font mb-1">{car.brand} {car.carName}</h3>
+                                        <h3 className="text-gray-600 dark:text-gray-400 text-sm tracking-widest title-font mb-1">{car.fuel}</h3>
+                                        <h3 className="text-gray-600 dark:text-gray-400 text-sm tracking-widest title-font mb-1">{car.transmission}</h3>
+                                        <h2 className="text-gray-900 dark:text-gray-100 title-font text-lg font-semibold mt-2">{car.price} Rs/day</h2>
                                     </div>
                                 </Link>
+
                             )
                         })}
                     </div>

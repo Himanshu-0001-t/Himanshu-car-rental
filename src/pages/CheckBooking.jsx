@@ -22,8 +22,6 @@ const EmailForm = () => {
         try {
             const response = await axios.post('https://car-rental-backend-g8cq.onrender.com/api/show', { email });
 
-            console.log(response.data)
-
             if (response.data.success) {
                 setResponseMessage(response.data.message);
                 setBooking(response.data.bookings)

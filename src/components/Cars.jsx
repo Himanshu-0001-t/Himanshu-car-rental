@@ -10,7 +10,6 @@ function Cars() {
 
     useEffect(() => {
         const feachCar = async () => {
-            console.log("feachCar")
             try {
                 setIsLoding(true)
                 let response = await axios.get("https://car-rental-backend-g8cq.onrender.com/api/car?limit=8")
@@ -33,10 +32,11 @@ function Cars() {
     return (
         <div className="container px-5 mx-auto pb-10">
             <div className="flex flex-wrap">
+
                 {isLoding ? <ProductSkeleton /> : <>
                     {cars.map((car) => {
                         return (
-                            <Link to={`/${car._id}`} key={car._id} className="lg:w-1/4 md:w-1/2 p-4 w-full">
+                            <Link to={`/car/${car._id}`} key={car._id} className="lg:w-1/4 md:w-1/2 p-4 w-full">
                                 <div className="block relative h-48 rounded overflow-hidden bg-gray-900">
                                     <img alt="car" className="object-cover object-center w-full h-full block" src={car.carImage} />
                                 </div>
@@ -45,7 +45,6 @@ function Cars() {
                                 <h2 className="text-white title-font text-sm font-medium">{car.fuel} </h2>
                                 <p className="mt-1">{car.price}</p>
                             </Link>
-
                         )
                     })}
                 </>
