@@ -57,12 +57,13 @@ const BookingForm = () => {
 
                 if (response.data.success) {
                     toast.success(`${response.data.message} and Your toal bil is ${response.data.Total}`)
-                    navigate('/')
+                    navigate('/success-rent')
                 } else {
                     toast.error(response.data.message)
                 }
 
             } catch (err) {
+
                 console.error('Booking failed:', err);
 
             }
