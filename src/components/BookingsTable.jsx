@@ -27,7 +27,7 @@ const BookingsTable = ({ bookings, carImage }) => {
     const handleCancle = async (bookingId) => {
 
         try {
-            let response = await axios.post("https://car-rental-backend-g8cq.onrender.com/api/cancel", { bookingId })
+            let response = await axios.post("https://carrentalbackend-vpfgiypn.b4a.run/api/cancel", { bookingId })
 
             if (response.data.success) {
                 toast.success(response.data.message)

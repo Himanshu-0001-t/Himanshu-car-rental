@@ -8,8 +8,8 @@ const BookingForm = () => {
     let { carId } = useParams()
     let navigate = useNavigate()
     let location = useLocation()
-
     let car = location.state
+
     const [formData, setFormData] = useState({
         Name: '',
         email: '',
@@ -21,6 +21,7 @@ const BookingForm = () => {
     const [totalDays, setTotalDays] = useState(null);
     const [error, setError] = useState('');
     const [totalPrice, setTotalPrice] = useState(0)
+    const [loading, setLoading] = useState(false)
 
     const handleChange = (e) => {
         setFormData({
@@ -28,6 +29,18 @@ const BookingForm = () => {
             [e.target.name]: e.target.value,
         });
     };
+
+
+    const validateEmail = (email) => {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(email);
+    }
+
+    function validateIndianMobileNumber(mobileNumber) {
+        const mobileNumberRegex = /^[6-9]\d{9}$/;
+        return mobileNumberRegex.test(mobileNumber);
+    }
+
 
     const calculateTotalDays = () => {
         const start = new Date(formData.startDate);
@@ -49,24 +62,30 @@ const BookingForm = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        calculateTotalDays();
 
-        if (!error && totalDays !== null) {
-            try {
-                const response = await axios.post('https://car-rental-backend-g8cq.onrender.com/api/book', formData);
+        if (validateEmail(formData.email) || validateIndianMobileNumber(formData.phoneNo)) {
+            calculateTotalDays();
+            if (!error && totalDays !== null) {
+                try {
+                    setLoading(true)
+                    const response = await axios.post('https://carrentalbackend-vpfgiypn.b4a.run/api/book', formData);
 
-                if (response.data.success) {
-                    toast.success(`${response.data.message} and Your toal bil is ${response.data.Total}`)
-                    navigate('/success-rent')
-                } else {
-                    toast.error(response.data.message)
+                    if (response.data.success) {
+                        toast.success(`${response.data.message} and Your toal bil is ${response.data.Total}`)
+                        navigate('/success-rent')
+                    } else {
+                        toast.error(response.data.message)
+                    }
+
+                } catch (err) {
+                    console.error('Booking failed:', err);
+                } finally {
+                    setLoading(false)
                 }
-
-            } catch (err) {
-
-                console.error('Booking failed:', err);
-
             }
+        } else {
+            setError("Invalid Email id or phone number")
+            setLoading(false)
         }
     };
 
@@ -116,7 +135,7 @@ const BookingForm = () => {
                 <div className="mb-4">
                     <label className="block text-gray-700 font-semibold mb-2">Phone Number:</label>
                     <input
-                        type="number"
+                        type="text"
                         name="phoneNo"
                         value={formData.phoneNo}
                         onChange={handleChange}
@@ -154,7 +173,7 @@ const BookingForm = () => {
                     <Link className="bg-gray-500 text-white py-2 px-4 rounded-lg hover:bg-gray-600" to="/">Cancel</Link>
                     <button
                         type="submit"
-                        className="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600"
+                        className="bg-blue-500 text-white py-2 px-4 rounded-lg disabled:bg-gray-400 hover:bg-blue-600" disabled={loading}
                     >
                         Book Now
                     </button>

@@ -9,6 +9,7 @@ const EmailForm = () => {
     const [error, setError] = useState('');
     const [booking, setBooking] = useState(null)
     const [carImage, setCarImage] = useState(null)
+    const [loading, setLoading] = useState(false)
 
     const handleChange = (e) => {
         setEmail(e.target.value);
@@ -20,7 +21,8 @@ const EmailForm = () => {
         setResponseMessage('');
 
         try {
-            const response = await axios.post('https://car-rental-backend-g8cq.onrender.com/api/show', { email });
+            setLoading(true)
+            const response = await axios.post('https://carrentalbackend-vpfgiypn.b4a.run/api/show', { email });
 
             if (response.data.success) {
                 setResponseMessage(response.data.message);
@@ -32,6 +34,8 @@ const EmailForm = () => {
             }
         } catch (err) {
             setError(err.response.data.error);
+        } finally {
+            setLoading(false)
         }
     };
 
@@ -54,7 +58,7 @@ const EmailForm = () => {
                 {responseMessage && <p className="text-greeen-500 mb-4">{responseMessage}</p>}
                 <button
                     type="submit"
-                    className="bg-blue-500 text-white py-2 px-14 my-3 m-auto block rounded-lg hover:bg-blue-600"
+                    className="bg-blue-500 text-white py-2 px-14 my-3 m-auto block rounded-lg hover:bg-blue-600 disabled:bg-gray-400" disabled={loading}
                 >
                     Submit
                 </button>

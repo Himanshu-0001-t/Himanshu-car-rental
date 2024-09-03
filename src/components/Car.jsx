@@ -10,7 +10,7 @@ function Car() {
     useEffect(() => {
         const feachCar = async () => {
             try {
-                let response = await axios.get(`https://car-rental-backend-g8cq.onrender.com/api/car/${id}`)
+                let response = await axios.get(`https://carrentalbackend-vpfgiypn.b4a.run/api/car/${id}`)
 
                 if (response.data.success) {
                     setCar(response.data.car)

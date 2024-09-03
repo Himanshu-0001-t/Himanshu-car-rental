@@ -47,7 +47,7 @@ const CarForm = () => {
 
         try {
             setIsLoding(true)
-            const response = await axios.post("https://car-rental-backend-g8cq.onrender.com/api/car", formData)
+            const response = await axios.post("https://carrentalbackend-vpfgiypn.b4a.run/api/car", formData)
 
             if (response.data.success) {
                 toast.success(response.data.message)

@@ -19,7 +19,7 @@ function Rent() {
 
         try {
             setIsLoding(true)
-            let response = await axios.get(`https://car-rental-backend-g8cq.onrender.com/api/car${query ? `${query}` : ""}`)
+            let response = await axios.get(`https://carrentalbackend-vpfgiypn.b4a.run/api/car${query ? `${query}` : ""}`)
 
             if (response.data.success) {
                 setCars(response.data.cars)
@@ -35,8 +35,6 @@ function Rent() {
             setIsLoding(false)
         }
     }
-
-    const [filteredCars, setFilteredCars] = useState([]);
 
     const handleFilter = (filters) => {
 

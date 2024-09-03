@@ -12,7 +12,7 @@ function Cars() {
         const feachCar = async () => {
             try {
                 setIsLoding(true)
-                let response = await axios.get("https://car-rental-backend-g8cq.onrender.com/api/car?limit=8")
+                let response = await axios.get("https://carrentalbackend-vpfgiypn.b4a.run/api/car?limit=8")
 
                 if (response.data.success) {
                     setCars(response.data.cars)
